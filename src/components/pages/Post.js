@@ -26,7 +26,7 @@ const Post = () => {
     handleClose();
   };
 
-  if(showModal === true) return (
+  if(showModal) return (
     <ModalDelete showModal={showModal} handleClose={handleClose} handleRemove={handleRemove} />
   );
   if(!postData) return <Navigate to="/" />;
