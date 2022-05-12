@@ -1,16 +1,29 @@
-import { useParams } from 'react-router-dom';
 import { getPostById } from '../../redux/postsRedux';
 import { useSelector } from 'react-redux';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card'
-import { Link } from 'react-router-dom';
+import { useParams, Link,  Navigate } from 'react-router-dom';
+import { useState } from 'react';
+import ModalDelete from '../features/ModalDelete';
+
 
 const Post = () => {
 
   const {postId} = useParams();
-  const postData = useSelector(state => getPostById(state, postId))
+  const postData = useSelector(state => getPostById(state, postId));
+
+  const [showModal, setShowModal] = useState(false);
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => {
+    setShowModal(true);    
+  };
+
+  if(showModal === true) return (
+    <ModalDelete showModal={showModal} handleClose={handleClose} />
+  )
+  if(!postData) return <Navigate to="/" />
   return (
     <div>
       <Row className="d-flex justify-content-center">
@@ -18,8 +31,8 @@ const Post = () => {
         <Card className="border-0">
             <Card.Body>
               <Card.Title>{postData.title}</Card.Title>
-              <Card.Subtitle className="mb-1">Author: <span as={Card.Text}>{postData.author}</span></Card.Subtitle>
-              <Card.Subtitle>Published: {postData.publishedDate}</Card.Subtitle>
+              <Card.Text className="mb-1"><b>Author:</b> {postData.author}</Card.Text>
+              <Card.Text><b>Published:</b> {postData.publishedDate}</Card.Text>
               <Card.Text className="mt-2">{postData.content}</Card.Text>         
             </Card.Body>
           </Card>
@@ -27,10 +40,8 @@ const Post = () => {
         <Col xs="12" lg="4">
         <Link to="/post/edit">
           <Button variant="outline-info" className="m-2">Edit</Button>
-        </Link>
-        <Link to="/">
-          <Button variant="outline-danger">Delete</Button>
-        </Link>
+        </Link>    
+          <Button variant="outline-danger" onClick={handleShow}>Delete</Button>       
         </Col>
       </Row>
     </div>
