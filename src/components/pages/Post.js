@@ -1,5 +1,5 @@
 import { getPostById } from '../../redux/postsRedux';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
@@ -7,23 +7,28 @@ import Card from 'react-bootstrap/Card'
 import { useParams, Link,  Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import ModalDelete from '../features/ModalDelete';
+import { removePost } from '../../redux/postsRedux';
 
 
 const Post = () => {
 
+  const dispatch =  useDispatch();
   const {postId} = useParams();
   const postData = useSelector(state => getPostById(state, postId));
 
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
-  const handleShow = () => {
-    setShowModal(true);    
+  const handleShow = () =>  setShowModal(true);    
+
+  const handleRemove = () => {  
+    dispatch(removePost( postId ));
+    handleClose();
   };
 
   if(showModal === true) return (
-    <ModalDelete showModal={showModal} handleClose={handleClose} />
-  )
-  if(!postData) return <Navigate to="/" />
+    <ModalDelete showModal={showModal} handleClose={handleClose} handleRemove={handleRemove} />
+  );
+  if(!postData) return <Navigate to="/" />;
   return (
     <div>
       <Row className="d-flex justify-content-center">

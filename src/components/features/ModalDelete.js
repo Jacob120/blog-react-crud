@@ -15,7 +15,7 @@ const ModalDelete = props => {
         <Button variant="secondary" onClick={props.handleClose}>
           Cancel
         </Button>
-        <Button variant="danger" onClick={props.handleClose}>
+        <Button variant="danger" onClick={props.handleRemove}>
           Confirm
         </Button>
       </Modal.Footer>
