@@ -20,7 +20,8 @@ const Post = () => {
   const handleClose = () => setShowModal(false);
   const handleShow = () =>  setShowModal(true);    
 
-  const handleRemove = () => {  
+  const handleRemove = e => {  
+    e.preventDefault();
     dispatch(removePost( postId ));
     handleClose();
   };
