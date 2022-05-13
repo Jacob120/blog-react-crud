@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const PostForm = ({ action, actionText, ...props }) => {
 
   let navigate = useNavigate();
-
+  console.log('props.id', props.id)
   const [title, setTitle] = useState(props.title || '');
   const [author, setAuthor] = useState(props.author || '');
   const [publishedDate, setPublishedDate] = useState(props.publishedDate || '');

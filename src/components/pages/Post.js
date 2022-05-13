@@ -19,6 +19,7 @@ const Post = () => {
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
   const handleShow = () =>  setShowModal(true);    
+  console.log('postdata-post', postId);
 
   const handleRemove = e => {  
     e.preventDefault();
@@ -44,7 +45,7 @@ const Post = () => {
           </Card>
         </Col>
         <Col xs="12" lg="4">
-        <Link to="/post/edit">
+        <Link to={"/edit/" + postId}>
           <Button variant="outline-info" className="m-2">Edit</Button>
         </Link>    
           <Button variant="outline-danger" onClick={handleShow}>Delete</Button>       
