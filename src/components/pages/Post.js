@@ -19,7 +19,6 @@ const Post = () => {
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
   const handleShow = () =>  setShowModal(true);    
-  console.log('postdata-post', postId);
 
   const handleRemove = e => {  
     e.preventDefault();

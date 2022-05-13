@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const PostForm = ({ action, actionText, ...props }) => {
 
   let navigate = useNavigate();
-  console.log('props.id', props.id)
+
   const [title, setTitle] = useState(props.title || '');
   const [author, setAuthor] = useState(props.author || '');
   const [publishedDate, setPublishedDate] = useState(props.publishedDate || '');
@@ -17,15 +17,15 @@ const PostForm = ({ action, actionText, ...props }) => {
   const [content, setContent] = useState(props.content || '');
 
   const handleSubmit = e => {
-    e.preventDefault();
-    action({ title, author, publishedDate, shortDescription, content });
+    e.preventDefault();   
+    action({ title, author, publishedDate, shortDescription, content });  
     navigate('/');
-  }
+  } 
 
   return (
     <Row>
       <Col md={{span: 6, offset: 3}}>
-        <h1>Add post</h1>
+        <h1>{actionText}</h1>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3 w-50">
             <Form.Label >Title</Form.Label>
@@ -36,8 +36,8 @@ const PostForm = ({ action, actionText, ...props }) => {
             <Form.Control type="text" placeholder="Enter author" value={author} onChange={e => setAuthor(e.target.value)}/>
           </Form.Group>
           <Form.Group className="mb-3 w-50">
-            <Form.Label value={publishedDate}>Published</Form.Label>
-            <Form.Control type="text" placeholder="dd-mm-yyyy" value={publishedDate} onChange={e => setPublishedDate(e.target.value)}/>
+            <Form.Label >Published</Form.Label>
+            <Form.Control type="date" placeholder="dd-mm-yyyy" value={publishedDate} onChange={e => setPublishedDate(e.target.value)}/>
           </Form.Group>
           <Form.Group >
             <Form.Label value={shortDescription}>Short description</Form.Label>              

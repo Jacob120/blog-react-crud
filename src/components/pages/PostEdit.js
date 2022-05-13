@@ -2,7 +2,7 @@ import EditPostForm from '../features/EditPostForm';
 
 const PostEdit = () => {
   return (
-   <EditPostForm />
+    <EditPostForm />
   );
 };
 
