@@ -10,6 +10,7 @@ const EditPostForm = () => {
   const dispatch = useDispatch();
   const {postId} = useParams();
   const postData = useSelector(state => getPostById(state, postId));
+  // const date = dateToStr(postData.publishedDate);
 
   let navigate = useNavigate();
 
