@@ -13,7 +13,6 @@ import { useForm } from 'react-hook-form';
 
 
 const PostForm = ({ action, actionText, ...props }) => {
-
   
   let navigate = useNavigate();
   const id = props.id;
@@ -21,7 +20,7 @@ const PostForm = ({ action, actionText, ...props }) => {
   const [author, setAuthor] = useState(props.author || '');
   const [publishedDate, setPublishedDate] = useState(props.publishedDate || '');
   const [shortDescription, setShortDescription] = useState(props.shortDescription || '');
-  const [content, setContent] = useState(props.content || '');
+  const [content, setContent] = useState(props.content || false);
   const [contentError, setContentError] = useState(false);
   const [dateError, setDateError] = useState(false);
   
@@ -32,10 +31,12 @@ const PostForm = ({ action, actionText, ...props }) => {
     setDateError(!publishedDate)  
     if(content && publishedDate) {
       action({ title, author, publishedDate, shortDescription, content, id });  
+      navigate('/');
     }
-    navigate('/');
-  } 
-  console.log(content)
+  };
+  console.log('content:', content)
+  console.log('error:', contentError)
+
   return (
     <Row>
       <Col md={{span: 6, offset: 3}}>
@@ -71,7 +72,7 @@ const PostForm = ({ action, actionText, ...props }) => {
             />
            {dateError && <small className="d-block form-text text-danger mt-2">Date can't be empty</small>}
           </Form.Group>
-          <Form.Group >
+          <Form.Group  className="mb-3" >
             <Form.Label value={shortDescription}>Short description</Form.Label>              
             <FloatingLabel controlId="floatingTextarea" className="mb-3">
                 <Form.Control 
