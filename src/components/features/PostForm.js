@@ -20,7 +20,7 @@ const PostForm = ({ action, actionText, ...props }) => {
   const [author, setAuthor] = useState(props.author || '');
   const [publishedDate, setPublishedDate] = useState(props.publishedDate || '');
   const [shortDescription, setShortDescription] = useState(props.shortDescription || '');
-  const [content, setContent] = useState(props.content || false);
+  const [content, setContent] = useState(props.content || '');
   const [contentError, setContentError] = useState(false);
   const [dateError, setDateError] = useState(false);
   
@@ -31,11 +31,9 @@ const PostForm = ({ action, actionText, ...props }) => {
     setDateError(!publishedDate)  
     if(content && publishedDate) {
       action({ title, author, publishedDate, shortDescription, content, id });  
-      navigate('/');
+      navigate('/')
     }
   };
-  console.log('content:', content)
-  console.log('error:', contentError)
 
   return (
     <Row>
