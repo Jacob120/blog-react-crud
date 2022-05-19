@@ -26,15 +26,15 @@ const PostForm = ({ action, actionText, ...props }) => {
   
   const { register, handleSubmit: validate, formState: { errors } } = useForm();
 
-  const handleSubmit = () => {    
-    setContentError(!content)
-    setDateError(!publishedDate)  
-    if(content && publishedDate) {
-      action({ title, author, publishedDate, shortDescription, content, id });  
-      navigate('/')
+  const handleSubmit = () => {
+    setContentError(!content);
+    setDateError(!publishedDate);
+
+    if (content && publishedDate && content !== '<p><br></p>') {
+      action({ title, author, publishedDate, shortDescription, content, id });
+      navigate('/');
     }
   };
-
   return (
     <Row>
       <Col md={{span: 6, offset: 3}}>
