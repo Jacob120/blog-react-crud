@@ -1,6 +1,5 @@
 import { getAllCategories } from '../../redux/categoriesRedux';
 import { useSelector } from 'react-redux';
-import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 
