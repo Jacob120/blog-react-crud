@@ -10,7 +10,8 @@ import 'react-quill/dist/quill.snow.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from 'react-hook-form';
-
+import { getAllCategories } from '../../redux/categoriesRedux';
+import { useSelector } from 'react-redux';
 
 const PostForm = ({ action, actionText, ...props }) => {
   
@@ -21,9 +22,13 @@ const PostForm = ({ action, actionText, ...props }) => {
   const [publishedDate, setPublishedDate] = useState(props.publishedDate || '');
   const [shortDescription, setShortDescription] = useState(props.shortDescription || '');
   const [content, setContent] = useState(props.content || '');
+  const [category, setCategory] = useState(props.category || '');
   const [contentError, setContentError] = useState(false);
   const [dateError, setDateError] = useState(false);
   
+  const categories = useSelector(getAllCategories);
+  console.log(categories)
+
   const { register, handleSubmit: validate, formState: { errors } } = useForm();
 
   const handleSubmit = () => {
@@ -31,7 +36,7 @@ const PostForm = ({ action, actionText, ...props }) => {
     setDateError(!publishedDate);
 
     if (content && publishedDate && content !== '<p><br></p>') {
-      action({ title, author, publishedDate, shortDescription, content, id });
+      action({ title, author, publishedDate, shortDescription, content, id, category });
       navigate('/');
     }
   };
@@ -69,6 +74,13 @@ const PostForm = ({ action, actionText, ...props }) => {
               onChange={(date) => setPublishedDate(date)} 
             />
            {dateError && <small className="d-block form-text text-danger mt-2">Date can't be empty</small>}
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Category</Form.Label>
+            <Form.Select onChange={setCategory} value={category ? {category} : "1"}>
+              <option disabled value="1">Select category...</option>
+              {categories.map((category, index) => <option key={index} value={category}>{category}</option> )}           
+            </Form.Select>
           </Form.Group>
           <Form.Group  className="mb-3" >
             <Form.Label value={shortDescription}>Short description</Form.Label>              

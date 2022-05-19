@@ -22,8 +22,9 @@ const CardPost = () => {
             <Card.Body>
               <Card.Title>{post.title}</Card.Title>
               <Card.Text className="mb-1"><b>Author:</b> {post.author}</Card.Text>
-              <Card.Text><b>Published:</b> {dateToStr(post.publishedDate)}</Card.Text>
-              <Card.Text className="mt-2">{post.shortDescription}</Card.Text>
+              <Card.Text className="mb-1"><b>Published:</b> {dateToStr(post.publishedDate)}</Card.Text>
+              <Card.Text><b>Category:</b> {post.category}</Card.Text>
+              <Card.Text>{post.shortDescription}</Card.Text>
               <Link to={"/post/" + post.id}>
                 <Button variant="primary">Read more</Button>
               </Link>
