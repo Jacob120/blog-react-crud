@@ -1,15 +1,17 @@
-import CardPost from '../features/CardPosts';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { getPostByCategory } from '../../redux/postsRedux';
+import CardPost from '../features/CardPost';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { getAllPosts } from '../../redux/postsRedux';
 
-const Home = () => {
+const PostsByCategory = () => {
 
-  const posts = useSelector(getAllPosts);
-
+  const {postCategory} = useParams();
+  const postData =  useSelector(state => getPostByCategory(state, postCategory));
+  console.log('postData', postData)
   return (
     <div>
       <Row className="justify-content-end">
@@ -23,7 +25,7 @@ const Home = () => {
         </Col>
       </Row>
       <Row xs={1} md={3} className="g-3 justify-content-md-center">
-      {posts.map(post => (
+      {postData.map(post => (
         <Col key={post.id}>
           <CardPost {...post}/>
         </Col>
@@ -33,4 +35,4 @@ const Home = () => {
   );
 }
 
-export default Home;
+export default PostsByCategory;
