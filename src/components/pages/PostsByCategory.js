@@ -12,11 +12,18 @@ const PostsByCategory = () => {
   const {postCategory} = useParams();
   const postData =  useSelector(state => getPostByCategory(state, postCategory));
   console.log('postData', postData)
+
+  if(postData.length === 0) return (
+    <div>
+      <h1>Category: {postCategory}</h1>
+      <p>No posts in this category</p>
+    </div>
+  );
   return (
     <div>
       <Row className="justify-content-end">
         <Col>
-          <h1>All posts</h1>
+          <h1>Category: {postCategory}</h1>
         </Col>
         <Col className="d-flex flex-row-reverse p-2"> 
           <Link to="/post/add">

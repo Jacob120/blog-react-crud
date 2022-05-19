@@ -25,15 +25,18 @@ const PostForm = ({ action, actionText, ...props }) => {
   const [category, setCategory] = useState(props.category || '');
   const [contentError, setContentError] = useState(false);
   const [dateError, setDateError] = useState(false);
+  const [categoryError, setCategoryError] = useState(false);
+  console.log('cat:', category);
   
   const categories = useSelector(getAllCategories);
-  console.log(categories)
+
 
   const { register, handleSubmit: validate, formState: { errors } } = useForm();
 
   const handleSubmit = () => {
     setContentError(!content);
     setDateError(!publishedDate);
+    setCategoryError(!category);
 
     if (content && publishedDate && content !== '<p><br></p>') {
       action({ title, author, publishedDate, shortDescription, content, id, category });
@@ -76,11 +79,16 @@ const PostForm = ({ action, actionText, ...props }) => {
            {dateError && <small className="d-block form-text text-danger mt-2">Date can't be empty</small>}
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Category</Form.Label>
-            <Form.Select onChange={setCategory} value={category ? {category} : "1"}>
-              <option disabled value="1">Select category...</option>
-              {categories.map((category, index) => <option key={index} value={category}>{category}</option> )}           
-            </Form.Select>
+            <Form.Label>Category</Form.Label>   
+            <Form.Control {...register("category", { required: true})}
+              as="select"
+              placeholder="Please select category"
+              value={category ? category : "1"}
+              onChange={e => setCategory(e.target.value)}>
+                <option disabled value="1">Select category...</option>
+               {categories.map((category, index) => <option key={index} value={category}>{category}</option> )}   
+            </Form.Control>            
+            {categoryError && <small className="d-block form-text text-danger mt-2">Please choose category</small>}      
           </Form.Group>
           <Form.Group  className="mb-3" >
             <Form.Label value={shortDescription}>Short description</Form.Label>              
